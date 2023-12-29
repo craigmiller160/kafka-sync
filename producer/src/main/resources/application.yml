@@ -1,2 +1,10 @@
 server:
   port: 8000
+
+spring:
+  kafka:
+    consumer:
+      properties:
+        allow.auto.create.topics: false
+    bootstrap-servers:
+      - "localhost:29092"
