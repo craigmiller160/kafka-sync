@@ -5,3 +5,4 @@
 terraform.tfstate
 .gradle
 build
+database.json
