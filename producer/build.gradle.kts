@@ -8,7 +8,10 @@ plugins {
 
 group = projectGroup
 version = projectVersion
-java.sourceCompatibility = JavaVersion.VERSION_21
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
