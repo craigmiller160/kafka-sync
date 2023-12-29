@@ -2,6 +2,7 @@ package io.craigmiller160.kafka.sync.producer;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,11 +17,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PeopleController {
     private final Database database;
+    private final KafkaTemplate<String,Person> kafkaTemplate;
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addPerson(@RequestBody final Person person) {
         database.addPerson(person);
+        kafkaTemplate.send("person-topic", person);
     }
 
     @GetMapping
