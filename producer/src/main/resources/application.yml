@@ -7,6 +7,6 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
-        allow.auto.create.topics: false
+        request.timeout.ms: 20000
     bootstrap-servers:
       - "localhost:29092"
