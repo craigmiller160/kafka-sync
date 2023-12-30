@@ -24,6 +24,9 @@ public class PeopleController {
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void addPerson(@RequestBody final Person person) {
+        if (true) {
+            throw new RuntimeException("Dying");
+        }
         log.info("Adding Person");
         database.addPerson(person);
         kafkaTemplate.send("person-topic", person);
