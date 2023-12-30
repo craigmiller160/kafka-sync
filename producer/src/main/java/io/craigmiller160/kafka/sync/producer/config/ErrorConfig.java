@@ -1,5 +1,6 @@
 package io.craigmiller160.kafka.sync.producer.config;
 
+import io.craigmiller160.kafka.sync.producer.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +23,8 @@ public class ErrorConfig extends ResponseEntityExceptionHandler {
                                                              final HttpStatusCode statusCode,
                                                              final WebRequest request) {
         log.error("Error handling request", ex);
-        return super.handleExceptionInternal(ex, body, headers, statusCode, request);
+        final var errorResponse = new ErrorResponse(statusCode.value(), "");
+        return ResponseEntity.status(statusCode).body(errorResponse);
     }
 
     @ExceptionHandler(Exception.class)
