@@ -1,5 +1,7 @@
-package io.craigmiller160.kafka.sync.producer;
+package io.craigmiller160.kafka.sync.producer.controller;
 
+import io.craigmiller160.kafka.sync.producer.database.Database;
+import io.craigmiller160.kafka.sync.producer.dto.Person;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PeopleController {
     private final Database database;
-    private final KafkaTemplate<String,Person> kafkaTemplate;
+    private final KafkaTemplate<String, Person> kafkaTemplate;
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)

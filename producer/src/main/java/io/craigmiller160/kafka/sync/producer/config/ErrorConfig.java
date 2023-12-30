@@ -1,4 +1,4 @@
-package io.craigmiller160.kafka.sync.producer;
+package io.craigmiller160.kafka.sync.producer.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;

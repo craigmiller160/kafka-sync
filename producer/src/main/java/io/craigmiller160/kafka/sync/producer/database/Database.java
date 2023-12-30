@@ -1,6 +1,7 @@
-package io.craigmiller160.kafka.sync.producer;
+package io.craigmiller160.kafka.sync.producer.database;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.craigmiller160.kafka.sync.producer.dto.Person;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;

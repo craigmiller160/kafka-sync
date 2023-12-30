@@ -1,4 +1,4 @@
-package io.craigmiller160.kafka.sync.producer;
+package io.craigmiller160.kafka.sync.producer.dto;
 
 import lombok.Value;
 
