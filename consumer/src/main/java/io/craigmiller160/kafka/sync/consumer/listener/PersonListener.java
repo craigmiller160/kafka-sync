@@ -28,6 +28,9 @@ public class PersonListener {
     )
     public void addPerson(final Person person) {
         log.info("Received person {}", person);
+        if ("Die".equals(person.firstName())) {
+            throw new RuntimeException("Dying");
+        }
         database.addPerson(person);
     }
 }
