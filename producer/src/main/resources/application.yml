@@ -8,5 +8,6 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         request.timeout.ms: 20000
+        max.block.ms: 20000
     bootstrap-servers:
       - "localhost:29092"
