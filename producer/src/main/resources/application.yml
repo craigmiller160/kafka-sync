@@ -9,5 +9,6 @@ spring:
       properties:
         request.timeout.ms: 20000
         max.block.ms: 20000
+        spring.json.add.type.headers: false
     bootstrap-servers:
       - "localhost:29092"
