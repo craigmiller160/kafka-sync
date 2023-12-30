@@ -10,7 +10,8 @@ spring:
         spring.json.trusted.packages: io.craigmiller160.kafka.sync.consumer
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
       properties:
         request.timeout.ms: 20000
         max.block.ms: 20000
