@@ -5,6 +5,8 @@ import io.craigmiller160.kafka.sync.consumer.dto.Person;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.RetryableTopic;
+import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -13,6 +15,13 @@ import org.springframework.stereotype.Component;
 public class PersonListener {
     private final Database database;
 
+    @RetryableTopic(
+            attempts = "4",
+            backoff = @Backoff(
+                    delay = 2000L,
+                    multiplier = 2.0
+            )
+    )
     @KafkaListener(
             topics = "person-topic",
             groupId = "person-topic-group"
