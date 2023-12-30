@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class PersonListener {
     private final Database database;
 
-    @KafkaListener(topics = "person-topic")
+    @KafkaListener(topics = "person-topic", groupId = "person-topic-group")
     public void addPerson(final Person person) {
         log.info("Received person {}", person);
         database.addPerson(person);
