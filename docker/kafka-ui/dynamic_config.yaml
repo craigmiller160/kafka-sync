@@ -3,7 +3,7 @@ auth:
 kafka:
   clusters:
   - bootstrapServers: kafka:9092
-    name: LocalKafka2
+    name: LocalKafka
     properties: {}
     readOnly: false
 rbac:
