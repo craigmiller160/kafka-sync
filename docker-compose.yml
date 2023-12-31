@@ -42,3 +42,5 @@ services:
       DYNAMIC_CONFIG_ENABLED: 'true'
     volumes:
       - ./docker/kafka-ui:/etc/kafkaui
+      - ./truststore:/truststore
+      - ./keystore:/keystore
