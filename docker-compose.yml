@@ -24,6 +24,10 @@ services:
       KAFKA_TLS_TYPE: JKS
       KAFKA_CFG_SASL_MECHANISM_CONTROLLER_PROTOCOL: PLAIN
       KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_INTER_BROKER_USER: broker_user
+      KAFKA_INTER_BROKER_PASSWORD: broker_password
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CERTIFICATE_PASSWORD: password
     volumes:
       - ./docker/kafka:/bitnami/kafka
       - ./truststore/kafka.truststore.jks:/opt/bitnami/kafka/config/certs/kafka.truststore.jks:ro
