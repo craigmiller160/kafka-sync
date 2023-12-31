@@ -15,14 +15,14 @@ import org.springframework.stereotype.Component;
 public class PersonListener {
     private final Database database;
 
-    @RetryableTopic(
-            attempts = "4",
-            backoff = @Backoff(
-                    delay = 2000L,
-                    multiplier = 2.0
-            ),
-            autoCreateTopics = "false"
-    )
+//    @RetryableTopic(
+//            attempts = "4",
+//            backoff = @Backoff(
+//                    delay = 2000L,
+//                    multiplier = 2.0
+//            ),
+//            autoCreateTopics = "false"
+//    )
     @KafkaListener(
             topics = "person-topic",
             groupId = "person-topic-group"
