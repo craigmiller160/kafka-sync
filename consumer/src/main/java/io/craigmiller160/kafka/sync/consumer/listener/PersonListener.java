@@ -20,7 +20,8 @@ public class PersonListener {
             backoff = @Backoff(
                     delay = 2000L,
                     multiplier = 2.0
-            )
+            ),
+            autoCreateTopics = "false"
     )
     @KafkaListener(
             topics = "person-topic",
