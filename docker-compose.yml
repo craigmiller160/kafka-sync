@@ -35,4 +35,4 @@ services:
     environment:
       DYNAMIC_CONFIG_ENABLED: 'true'
     volumes:
-      - ./kui:/etc/kafkaui
+      - ./docker/kafka-ui:/etc/kafkaui
