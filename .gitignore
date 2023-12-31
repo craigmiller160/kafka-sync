@@ -8,3 +8,5 @@ build
 database.json
 *.tfstate.backup
 *.log
+!/docker/kafka/.gitkeep
+/docker/kafka/*
