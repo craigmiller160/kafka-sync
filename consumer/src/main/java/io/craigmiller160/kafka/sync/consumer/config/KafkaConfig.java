@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaOperations;
 import org.springframework.kafka.listener.DeadLetterPublishingRecoverer;
 import org.springframework.kafka.listener.DefaultErrorHandler;
+import org.springframework.kafka.support.ExponentialBackOffWithMaxRetries;
 import org.springframework.kafka.support.converter.ByteArrayJsonMessageConverter;
 import org.springframework.kafka.support.converter.JsonMessageConverter;
 
@@ -23,6 +24,9 @@ public class KafkaConfig {
         final var recoverer = new DeadLetterPublishingRecoverer(kafkaOperations,
                 (consumerRecord, exception) -> new TopicPartition("%s-dlt".formatted(consumerRecord.topic()), 0)
         );
-        return new DefaultErrorHandler(recoverer);
+        final var backoff = new ExponentialBackOffWithMaxRetries(3);
+        backoff.setInitialInterval(2000L);
+        backoff.setMultiplier(5);
+        return new DefaultErrorHandler(recoverer, backoff);
     }
 }
