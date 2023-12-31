@@ -21,8 +21,13 @@ services:
       KAFKA_CONTROLLER_PASSWORD: controller_password
       KAFKA_CLIENT_USERS: user
       KAFKA_CLIENT_PASSWORDS: password
+      KAFKA_TLS_TYPE: JKS
+      KAFKA_CFG_SASL_MECHANISM_CONTROLLER_PROTOCOL: PLAIN
+      KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
     volumes:
       - ./docker/kafka:/bitnami/kafka
+      - ./truststore/kafka.truststore.jks:/opt/bitnami/kafka/config/certs/kafka.truststore.jks:ro
+      - ./keystore/kafka.keystore.jks:/opt/bitnami/kafka/config/certs/kafka.keystore.jks:ro
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
