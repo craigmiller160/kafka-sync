@@ -6,17 +6,6 @@ kafka:
     name: LocalKafka
     properties: {}
     readOnly: false
-  - bootstrapServers: localhost:9092
-    name: Kafka2
-    properties:
-      security.protocol: SASL_SSL
-      sasl.mechanism: PLAIN
-      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required
-        username="user" password="password";
-    readOnly: false
-    ssl:
-      truststoreLocation: /etc/kafkaui/uploads/kafka.truststore.jks-1704062869
-      truststorePassword: password
 rbac:
   roles: []
 webclient: {}
