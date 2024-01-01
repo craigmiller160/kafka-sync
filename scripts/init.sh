@@ -10,4 +10,7 @@ terraform_apply() {
   (cd terraform && terraform init -reconfigure && terraform apply)
 }
 
-
+generate_tls() {
+  echo "Generating TLS certificates"
+  (cd scripts && bash kafka-generate-ssl.sh && bash kafka-ssl-postprocess.sh)
+}
