@@ -7,11 +7,13 @@ VALIDITY_IN_DAYS=3650
 
 
 create_certs_directory() {
+  echo "Creating certs directory"
   rm -rf $CERTS_DIR 2>/dev/null
   mkdir $CERTS_DIR
 }
 
 create_ca_cert_and_key() {
+  echo "Creating CA certificate & key"
   openssl \
     req \
     -new \
