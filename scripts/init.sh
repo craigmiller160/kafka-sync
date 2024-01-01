@@ -12,7 +12,8 @@ terraform_apply() {
 
 generate_tls() {
   do_generate_tls=""
-  echo -n "Do you want to generate TLS certificates?"
+  echo -n "Do you want to generate TLS certificates? (y/n) "
+  read do_generate_tls
 
   if [ "$do_generate_tls" == "y" ]; then
     echo "Generating TLS certificates"
