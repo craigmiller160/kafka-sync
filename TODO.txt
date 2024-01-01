@@ -1,4 +1,4 @@
-[ ] Retry/DLT
-[ ] Authentication
-[ ] TLS
+[x] Retry/DLT
+[x] Authentication
+[x] TLS
 [ ] ACLs
