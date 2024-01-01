@@ -113,7 +113,8 @@ decrypt_key() {
   openssl \
     rsa \
     -in "$1" \
-    -out "$2"
+    -out "$2" \
+    -passin "pass:$PASSWORD"
   check_command_status $?
 }
 
