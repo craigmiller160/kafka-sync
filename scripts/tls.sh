@@ -33,6 +33,7 @@ create_ca_cert_and_key() {
     -days $VALIDITY_IN_DAYS \
     -subj "$CERT_SUBJECT" \
     -passout "pass:$PASSWORD"
+  check_command_status $?
 }
 
 create_cert_req() {
@@ -45,6 +46,7 @@ create_cert_req() {
     -out "$LOCALHOST_CERT_REQ" \
     -subj "$CERT_SUBJECT" \
     -passout "pass:$PASSWORD"
+  check_command_status $?
 
     openssl \
       x509 \
@@ -56,6 +58,7 @@ create_cert_req() {
       -days "$VALIDITY_IN_DAYS" \
       -CAcreateserial \
       -passin "pass:$PASSWORD"
+    check_command_status $?
 }
 
 create_stores() {
@@ -67,6 +70,7 @@ create_stores() {
     -import \
     -file "$CA_CERT" \
     -noprompt
+  check_command_status $?
 }
 
 create_certs_directory
