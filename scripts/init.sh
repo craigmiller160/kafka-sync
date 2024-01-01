@@ -21,5 +21,5 @@ generate_tls() {
 }
 
 docker_start
-terraform_apply
 generate_tls
+terraform_apply
