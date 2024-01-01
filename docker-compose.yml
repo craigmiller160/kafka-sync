@@ -29,7 +29,8 @@ services:
       KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_CERTIFICATE_PASSWORD: password
     volumes:
-      - ./docker/kafka:/bitnami/kafka
+      - ./docker/kafka/data:/bitnami/kafka
+      - ./docker/kafka/config:/opt/bitnami/kafka/config
       - ./certs/kafka.truststore.jks:/opt/bitnami/kafka/config/certs/kafka.truststore.jks:ro
       - ./certs/kafka.keystore.jks:/opt/bitnami/kafka/config/certs/kafka.keystore.jks:ro
 
