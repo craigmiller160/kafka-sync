@@ -61,7 +61,7 @@ create_cert_req() {
     check_command_status $?
 }
 
-create_stores() {
+create_kafka_stores() {
   echo "Creating Kafka truststore"
   keytool \
     -keystore "$KAFKA_TRUSTSTORE" \
@@ -71,9 +71,19 @@ create_stores() {
     -file "$CA_CERT" \
     -noprompt
   check_command_status $?
+
+  echo "Creating Kafka keystore"
+  keytool \
+    -keystore "$KAFKA_KEYSTORE" \
+    -storepass "$PASSWORD" \
+    -alias localhost \
+    -import \
+    -file "$LOCALHOST_CERT" \
+    -noprompt
+  check_command_status $?
 }
 
 create_certs_directory
 create_ca_cert_and_key
 create_cert_req
-create_stores
+create_kafka_stores
