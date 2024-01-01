@@ -13,6 +13,7 @@ PASSWORD=password
 KAFKA_TRUSTSTORE="$CERTS_DIR/kafka.truststore.jks"
 KAFKA_KEYSTORE="$CERTS_DIR/kafka.keystore.jks"
 CERT_SUBJECT="/C=US/ST=Florida/L=Tampa/O=KafkaSync/OU=KafkaSync/CN=localhost"
+ROOT_TRUSTSTORE_PATH="$JAVA_HOME/libexec/openjdk.jdk/Contents/Home/lib/security/cacerts"
 
 
 create_certs_directory() {
@@ -83,7 +84,32 @@ create_kafka_stores() {
   check_command_status $?
 }
 
+create_store_for_app() {
+  truststore_path="./$1/src/main/resources/truststore.jks"
+
+  cp "$ROOT_TRUSTSTORE_PATH" "$truststore_path"
+  check_command_status $?
+
+  keytool -importkeystore \
+    -srckeystore "$KAFKA_KEYSTORE" \
+    -destkeystore "$truststore_path" \
+    -srcstoretype jks \
+    -deststoretype jks \
+    -srcstorepass "$PASSWORD" \
+    -deststorepass changeit
+  check_command_status $?
+}
+
+create_app_stores() {
+  echo "Creating producer application truststore"
+  create_store_for_app "producer"
+
+  echo "Creating consumer application truststore"
+  create_store_for_app "consumer"
+}
+
 create_certs_directory
 create_ca_cert_and_key
 create_cert_req
 create_kafka_stores
+create_app_truststores
