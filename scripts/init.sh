@@ -2,6 +2,21 @@
 
 . ./scripts/utils.sh
 
+wait_for_kafka() {
+  echo "Waiting for kafka to start up"
+  for i in {1..10}; do
+    response=$(curl localhost:9094 2>&1 | tail -n 1 | grep -c HTTP/0.9)
+    if [ $response -eq 1 ]; then
+      break
+    fi
+
+    sleep 1
+  done
+
+  echo "Kafka failed to start before the timeout"
+  exit 1
+}
+
 docker_start() {
   echo "Starting docker applications"
   docker compose up -d
