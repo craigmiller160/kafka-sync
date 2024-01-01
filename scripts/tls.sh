@@ -16,6 +16,7 @@ KAFKA_TRUSTSTORE="$CERTS_DIR/kafka.truststore.jks"
 KAFKA_KEYSTORE="$CERTS_DIR/kafka.keystore.jks"
 CERT_SUBJECT="/C=US/ST=Florida/L=Tampa/O=KafkaSync/OU=KafkaSync/CN=localhost"
 ROOT_TRUSTSTORE_PATH="$JAVA_HOME/libexec/openjdk.jdk/Contents/Home/lib/security/cacerts"
+TEMP_P12="$CERTS_DIR/temp.p12"
 
 create_certs_directory() {
   echo "Creating certs directory"
@@ -75,14 +76,29 @@ create_kafka_stores() {
   check_command_status $?
 
   echo "Creating Kafka keystore"
-  keytool \
-    -keystore "$KAFKA_KEYSTORE" \
-    -storepass "$PASSWORD" \
-    -alias localhost \
-    -import \
-    -file "$LOCALHOST_CERT" \
-    -noprompt
+  openssl pkcs12 \
+    -export \
+    -in "$LOCALHOST_CERT" \
+    -inkey "$LOCALHOST_KEY_ENC" \
+    -out "$TEMP_P12" \
+    -CAfile "$CA_CERT" \
+    -caname caroot \
+    -passin "pass:$PASSWORD" \
+    -passout "pass:$PASSWORD"
   check_command_status $?
+
+  keytool \
+    -importkeystore \
+    -srckeystore "$TEMP_P12" \
+    -srcstoretype PKCS12 \
+    -srcstorepass "$PASSWORD" \
+    -destkeystore "$KAFKA_KEYSTORE" \
+    -deststorepass "$PASSWORD" \
+    -alias localhost
+  check_command_status $?
+
+  rm "$TEMP_P12"
+
   keytool \
     -keystore "$KAFKA_KEYSTORE" \
     -storepass "$PASSWORD" \
