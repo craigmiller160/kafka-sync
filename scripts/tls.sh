@@ -10,6 +10,7 @@ VALIDITY_IN_DAYS=3650
 PASSWORD=password
 KAFKA_TRUSTSTORE="$CERTS_DIR/kafka.truststore.jks"
 KAFKA_KEYSTORE="$CERTS_DIR/kafka.keystore.jks"
+CERT_SUBJECT="/C=US/ST=Florida/L=Tampa/O=KafkaSync/OU=KafkaSync/CN=localhost"
 
 
 create_certs_directory() {
@@ -27,7 +28,7 @@ create_ca_cert_and_key() {
     -keyout "$CA_KEY" \
     -out "$CA_CERT" \
     -days $VALIDITY_IN_DAYS \
-    -subj "/C=US/ST=Florida/L=Tampa/O=KafkaSync/OU=KafkaSync/CN=localhost" \
+    -subj "$CERT_SUBJECT" \
     -passout "pass:$PASSWORD"
 }
 
@@ -39,7 +40,7 @@ create_cert_req() {
     rsa:4096 \
     -keyout "$LOCALHOST_KEY" \
     -out "$LOCALHOST_CERT_REQ" \
-    -subj "/C=US/ST=Florida/L=Tampa/O=KafkaSync/OU=KafkaSync/CN=localhost" \
+    -subj "$CERT_SUBJECT" \
     -passout "pass:$PASSWORD"
 }
 
