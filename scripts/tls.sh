@@ -5,6 +5,8 @@ CA_CERT="$CERTS_DIR/ca.cert.pem"
 CA_KEY="$CERTS_DIR/ca_key.pem"
 VALIDITY_IN_DAYS=3650
 PASSWORD=password
+KAFKA_TRUSTSTORE="$CERTS_DIR/kafka.truststore.jks"
+KAFKA_KEYSTORE="$CERTS_DIR/kafka.keystore.jks"
 
 
 create_certs_directory() {
@@ -26,5 +28,15 @@ create_ca_cert_and_key() {
     -passout "pass:$PASSWORD"
 }
 
+create_stores() {
+  echo "Creating Kafka truststore"
+  keytool \
+    -keystore "$KAFKA_TRUSTSTORE" \
+    -alias CARoot \
+    -import \
+    -file "$CA_CERT"
+}
+
 create_certs_directory
 create_ca_cert_and_key
+create_stores
