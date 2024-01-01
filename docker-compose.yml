@@ -11,14 +11,27 @@ services:
     environment:
       KAFKA_CFG_NODE_ID: 0
       KAFKA_CFG_PROCESS_ROLES: controller,broker
-      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
-      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
-      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_CFG_LISTENERS: INTERNAL://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      KAFKA_CFG_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9094
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:SASL_PLAINTEXT,INTERNAL:PLAINTEXT,EXTERNAL:SASL_SSL
       KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: 0@kafka:9093
       KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: false
+      KAFKA_CONTROLLER_USER: controller_user
+      KAFKA_CONTROLLER_PASSWORD: controller_password
+      KAFKA_CLIENT_USERS: user
+      KAFKA_CLIENT_PASSWORDS: password
+      KAFKA_TLS_TYPE: JKS
+      KAFKA_CFG_SASL_MECHANISM_CONTROLLER_PROTOCOL: PLAIN
+      KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
+      KAFKA_INTER_BROKER_USER: broker_user
+      KAFKA_INTER_BROKER_PASSWORD: broker_password
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CERTIFICATE_PASSWORD: password
     volumes:
       - ./docker/kafka:/bitnami/kafka
+      - ./truststore/kafka.truststore.jks:/opt/bitnami/kafka/config/certs/kafka.truststore.jks:ro
+      - ./keystore/kafka.keystore.jks:/opt/bitnami/kafka/config/certs/kafka.keystore.jks:ro
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -29,3 +42,5 @@ services:
       DYNAMIC_CONFIG_ENABLED: 'true'
     volumes:
       - ./docker/kafka-ui:/etc/kafkaui
+      - ./truststore:/truststore
+      - ./keystore:/keystore
