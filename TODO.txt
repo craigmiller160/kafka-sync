@@ -1,4 +1,0 @@
-[x] Retry/DLT
-[x] Authentication
-[x] TLS
-[ ] ACLs
