@@ -1,6 +1,8 @@
 #!/bin/sh
 
-function extract {
+ROOT_TRUSTSTORE_PATH="$JAVA_HOME/libexec/openjdk.jdk/Contents/Home/lib/security/cacerts"
+
+extract() {
   keytool \
     -exportcert \
     -alias $1 \
@@ -9,12 +11,32 @@ function extract {
     -file $3
 }
 
-function decrypt {
+decrypt() {
   openssl \
     rsa \
     -in $1 \
     -out $2
 }
+
+create_app_truststore() {
+  truststore_path=./$1/src/main/resources/truststore.jks
+
+  cp $ROOT_TRUSTSTORE_PATH $truststore_path
+
+  keytool -importkeystore \
+    -srckeystore ./keystore/kafka.keystore.jks \
+    -destkeystore $truststore_path \
+    -srcstoretype jks \
+    -deststoretype jks \
+    -srcstorepass password \
+    -deststorepass changeit
+}
+
+echo "Creating app truststore for producer"
+create_app_truststore "producer"
+
+echo "Creating app truststore for consumer"
+create_app_truststore "consumer"
 
 echo "Extracting caroot certificate from truststore"
 extract "caroot" "truststore/kafka.truststore.jks" "truststore/caroot.pem"
