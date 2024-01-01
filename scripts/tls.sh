@@ -4,17 +4,18 @@
 
 CERTS_DIR="$(pwd)/certs"
 CA_CERT="$CERTS_DIR/ca.cert.pem"
-CA_KEY="$CERTS_DIR/ca_key.pem"
+CA_KEY_ENC="$CERTS_DIR/ca.key.enc.pem"
+CA_KEY_DEC="$CERTS_DIR/ca.key.dec.pem"
 LOCALHOST_CERT_REQ="$CERTS_DIR/localhost.req.pem"
 LOCALHOST_CERT="$CERTS_DIR/localhost.cert.pem"
-LOCALHOST_KEY="$CERTS_DIR/localhost.key.pem"
+LOCALHOST_KEY_ENC="$CERTS_DIR/localhost.key.enc.pem"
+LOCALHOST_KEY_DEC="$CERTS_DIR/localhost.key.dec.pem"
 VALIDITY_IN_DAYS=3650
 PASSWORD=password
 KAFKA_TRUSTSTORE="$CERTS_DIR/kafka.truststore.jks"
 KAFKA_KEYSTORE="$CERTS_DIR/kafka.keystore.jks"
 CERT_SUBJECT="/C=US/ST=Florida/L=Tampa/O=KafkaSync/OU=KafkaSync/CN=localhost"
 ROOT_TRUSTSTORE_PATH="$JAVA_HOME/libexec/openjdk.jdk/Contents/Home/lib/security/cacerts"
-
 
 create_certs_directory() {
   echo "Creating certs directory"
@@ -29,7 +30,7 @@ create_ca_cert_and_key() {
     req \
     -new \
     -x509 \
-    -keyout "$CA_KEY" \
+    -keyout "$CA_KEY_ENC" \
     -out "$CA_CERT" \
     -days $VALIDITY_IN_DAYS \
     -subj "$CERT_SUBJECT" \
@@ -43,7 +44,7 @@ create_cert_req() {
     req \
     -newkey \
     rsa:4096 \
-    -keyout "$LOCALHOST_KEY" \
+    -keyout "$LOCALHOST_KEY_ENC" \
     -out "$LOCALHOST_CERT_REQ" \
     -subj "$CERT_SUBJECT" \
     -passout "pass:$PASSWORD"
@@ -53,7 +54,7 @@ create_cert_req() {
       x509 \
       -req \
       -CA "$CA_CERT" \
-      -CAkey "$CA_KEY" \
+      -CAkey "$CA_KEY_ENC" \
       -in "$LOCALHOST_CERT_REQ" \
       -out "$LOCALHOST_CERT" \
       -days "$VALIDITY_IN_DAYS" \
@@ -108,8 +109,25 @@ create_app_stores() {
   create_store_for_app "consumer"
 }
 
+decrypt_key() {
+  openssl \
+    rsa \
+    -in "$1" \
+    -out "$2"
+  check_command_status $?
+}
+
+decrypt_keys() {
+  echo "Decrypting CA key"
+  decrypt_key "$CA_KEY_ENC" "$CA_KEY_DEC"
+
+  echo "Decrypting localhost key"
+  decrypt_key "$LOCALHOST_KEY_ENC" "$LOCALHOST_KEY_DEC"
+}
+
 create_certs_directory
 create_ca_cert_and_key
 create_cert_req
 create_kafka_stores
 create_app_stores
+decrypt_keys
