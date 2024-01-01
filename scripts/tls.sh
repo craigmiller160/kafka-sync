@@ -50,17 +50,17 @@ create_cert_req() {
     -passout "pass:$PASSWORD"
   check_command_status $?
 
-    openssl \
-      x509 \
-      -req \
-      -CA "$CA_CERT" \
-      -CAkey "$CA_KEY_ENC" \
-      -in "$LOCALHOST_CERT_REQ" \
-      -out "$LOCALHOST_CERT" \
-      -days "$VALIDITY_IN_DAYS" \
-      -CAcreateserial \
-      -passin "pass:$PASSWORD"
-    check_command_status $?
+  openssl \
+    x509 \
+    -req \
+    -CA "$CA_CERT" \
+    -CAkey "$CA_KEY_ENC" \
+    -in "$LOCALHOST_CERT_REQ" \
+    -out "$LOCALHOST_CERT" \
+    -days "$VALIDITY_IN_DAYS" \
+    -CAcreateserial \
+    -passin "pass:$PASSWORD"
+  check_command_status $?
 }
 
 create_kafka_stores() {
