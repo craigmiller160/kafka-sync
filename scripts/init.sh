@@ -22,8 +22,7 @@ docker_start() {
   docker compose up -d
   check_command_status $?
 
-  echo "Waiting 5 seconds for Kafka to finish starting"
-  sleep 5
+  wait_for_kafka
 }
 
 terraform_apply() {
