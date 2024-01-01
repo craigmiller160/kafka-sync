@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ./utils.sh
+
 CERTS_DIR="$(pwd)/certs"
 CA_CERT="$CERTS_DIR/ca.cert.pem"
 CA_KEY="$CERTS_DIR/ca_key.pem"
@@ -17,6 +19,7 @@ create_certs_directory() {
   echo "Creating certs directory"
   rm -rf "$CERTS_DIR" 2>/dev/null
   mkdir "$CERTS_DIR"
+  check_command_status $?
 }
 
 create_ca_cert_and_key() {

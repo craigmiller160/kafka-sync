@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ./scripts/utils.sh
+
 if [ $# -ne 1 ]; then
   echo "Must specify command"
   exit 1
@@ -13,3 +15,5 @@ case $1 in
     exit 1
   ;;
 esac
+
+check_command_status $?
