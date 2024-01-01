@@ -16,7 +16,7 @@ kafka:
         username="user" password="password";
     readOnly: false
     ssl:
-      truststoreLocation: /etc/kafkaui/uploads/kafka.truststore.jks-1704062869
+      truststoreLocation: /etc/kafkaui/kafka.truststore.jks
       truststorePassword: password
 rbac:
   roles: []
