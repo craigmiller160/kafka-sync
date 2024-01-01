@@ -7,7 +7,7 @@ wait_for_kafka() {
   for i in {1..10}; do
     response=$(curl localhost:9094 2>&1 | tail -n 1 | grep -c HTTP/0.9)
     if [ $response -eq 1 ]; then
-      break
+      return 0
     fi
 
     sleep 1
