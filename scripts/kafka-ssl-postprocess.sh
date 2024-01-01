@@ -24,13 +24,23 @@ create_app_truststore() {
   cp $ROOT_TRUSTSTORE_PATH $truststore_path
 
   keytool -importkeystore \
-    -srckeystore ./keystore/kafka.keystore.jks \
+    -srckeystore ./certs/kafka.keystore.jks \
     -destkeystore $truststore_path \
     -srcstoretype jks \
     -deststoretype jks \
     -srcstorepass password \
     -deststorepass changeit
 }
+
+copy_files() {
+  cp "$1/*" "$2"
+}
+
+echo "Moving keystore/truststore files to certs directory"
+rm -rf certs 2>/dev/null
+mkdir certs
+copy_files keystore certs
+copy_files truststore certs
 
 echo "Creating app truststore for producer"
 create_app_truststore "producer"
@@ -39,13 +49,10 @@ echo "Creating app truststore for consumer"
 create_app_truststore "consumer"
 
 echo "Extracting caroot certificate from truststore"
-extract "caroot" "truststore/kafka.truststore.jks" "truststore/caroot.pem"
+extract "caroot" "certs/kafka.truststore.jks" "certs/caroot.pem"
 
 echo "Decrypting ca-key from truststore"
-decrypt "truststore/ca-key" "truststore/ca-key.pem"
-
-echo "Extracting caroot certificate from keystore"
-extract "caroot" "keystore/kafka.keystore.jks" "keystore/caroot.pem"
+decrypt "certs/ca-key" "certs/ca-key.pem"
 
 echo "Extracting localhost certificate from keystore"
-extract "localhost" "keystore/kafka.keystore.jks" "keystore/localhost.pem"
+extract "localhost" "certs/kafka.keystore.jks" "certs/localhost.pem"
