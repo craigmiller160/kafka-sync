@@ -29,6 +29,7 @@ services:
       KAFKA_CFG_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_CERTIFICATE_PASSWORD: password
       KAFKA_CFG_AUTHORIZER_CLASS_NAME: org.apache.kafka.metadata.authorizer.StandardAuthorizer
+      KAFKA_CFG_SUPER_USERS: User:user;User:controller_user;User:broker_user
     volumes:
       - ./docker/kafka:/bitnami/kafka
       - ./certs/kafka.truststore.jks:/opt/bitnami/kafka/config/certs/kafka.truststore.jks:ro
