@@ -1,15 +1,16 @@
 #!/bin/bash
 
-CERTS_DIR=$(pwd)/certs
+CERTS_DIR="$(pwd)/certs"
 CA_CERT="$CERTS_DIR/ca.cert.pem"
 CA_KEY="$CERTS_DIR/ca_key.pem"
 VALIDITY_IN_DAYS=3650
+PASSWORD=password
 
 
 create_certs_directory() {
   echo "Creating certs directory"
-  rm -rf $CERTS_DIR 2>/dev/null
-  mkdir $CERTS_DIR
+  rm -rf "$CERTS_DIR" 2>/dev/null
+  mkdir "$CERTS_DIR"
 }
 
 create_ca_cert_and_key() {
@@ -20,7 +21,9 @@ create_ca_cert_and_key() {
     -x509 \
     -keyout "$CA_KEY" \
     -out "$CA_CERT" \
-    -days $VALIDITY_IN_DAYS
+    -days $VALIDITY_IN_DAYS \
+    -subj "/C=US/ST=Florida/L=Tampa/O=KafkaSync/OU=KafkaSync/CN=localhost" \
+    -passout "pass:$PASSWORD"
 }
 
 create_certs_directory
