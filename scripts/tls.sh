@@ -42,6 +42,17 @@ create_cert_req() {
     -out "$LOCALHOST_CERT_REQ" \
     -subj "$CERT_SUBJECT" \
     -passout "pass:$PASSWORD"
+
+    openssl \
+      x509 \
+      -req \
+      -CA "$CA_CERT" \
+      -CAkey "$CA_KEY" \
+      -in "$LOCALHOST_CERT_REQ" \
+      -out "$LOCALHOST_CERT" \
+      -days "$VALIDITY_IN_DAYS" \
+      -CAcreateserial \
+      -passin "pass:$PASSWORD"
 }
 
 create_stores() {
