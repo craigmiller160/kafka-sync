@@ -112,4 +112,4 @@ create_certs_directory
 create_ca_cert_and_key
 create_cert_req
 create_kafka_stores
-create_app_truststores
+create_app_stores
