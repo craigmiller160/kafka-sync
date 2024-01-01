@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CERTS_DIR=../certs
+CERTS_DIR=$(pwd)/certs
 CA_CERT="$CERTS_DIR/ca.cert.pem"
 CA_KEY="$CERTS_DIR/ca_key.pem"
 VALIDITY_IN_DAYS=3650
