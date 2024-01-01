@@ -13,14 +13,14 @@ terraform_apply() {
 generate_tls() {
   do_generate_tls=""
   echo -n "Do you want to generate TLS certificates? (y/n) "
-  read do_generate_tls
+  read -r do_generate_tls
 
   if [ "$do_generate_tls" == "y" ]; then
     echo "Generating TLS certificates"
-    (cd scripts && bash kafka-generate-ssl.sh && bash kafka-ssl-postprocess.sh)
+    bash ./scripts/tls.sh
   fi
 }
 
-docker_start
 generate_tls
+docker_start
 terraform_apply
