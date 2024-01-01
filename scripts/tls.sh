@@ -83,6 +83,14 @@ create_kafka_stores() {
     -file "$LOCALHOST_CERT" \
     -noprompt
   check_command_status $?
+  keytool \
+    -keystore "$KAFKA_KEYSTORE" \
+    -storepass "$PASSWORD" \
+    -alias localhost \
+    -import \
+    -file "$CA_CERT" \
+    -noprompt
+  check_command_status $?
 }
 
 create_store_for_app() {
