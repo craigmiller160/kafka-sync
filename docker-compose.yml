@@ -30,8 +30,8 @@ services:
       KAFKA_CERTIFICATE_PASSWORD: password
     volumes:
       - ./docker/kafka:/bitnami/kafka
-      - ./truststore/kafka.truststore.jks:/opt/bitnami/kafka/config/certs/kafka.truststore.jks:ro
-      - ./keystore/kafka.keystore.jks:/opt/bitnami/kafka/config/certs/kafka.keystore.jks:ro
+      - ./certs/kafka.truststore.jks:/opt/bitnami/kafka/config/certs/kafka.truststore.jks:ro
+      - ./certs/kafka.keystore.jks:/opt/bitnami/kafka/config/certs/kafka.keystore.jks:ro
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -42,5 +42,3 @@ services:
       DYNAMIC_CONFIG_ENABLED: 'true'
     volumes:
       - ./docker/kafka-ui:/etc/kafkaui
-      - ./truststore:/truststore
-      - ./keystore:/keystore
