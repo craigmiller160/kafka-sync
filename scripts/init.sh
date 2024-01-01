@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ./utils.sh
+
 docker_start() {
   echo "Starting docker applications"
   docker compose up -d

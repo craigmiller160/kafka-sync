@@ -9,6 +9,7 @@ fi
 
 case $1 in
   init) bash ./scripts/init.sh ;;
+  clean) bash ./scripts/clean.sh ;;
   *)
     echo "Invalid command: $1"
     exit 1
