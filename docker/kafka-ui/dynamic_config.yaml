@@ -11,6 +11,7 @@ kafka:
     properties:
       security.protocol: SASL_SSL
       sasl.mechanism: PLAIN
+      ssl.endpoint.identification.algorithm: ""
       sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required
         username="user" password="password";
     readOnly: false
