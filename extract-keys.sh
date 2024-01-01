@@ -10,10 +10,10 @@ function extract {
 }
 
 echo "Extracting certificate from truststore"
-extract "caroot" "truststore/kafka.truststore.jks" "truststore/kafka.truststore.pem"
+extract "caroot" "truststore/kafka.truststore.jks" "truststore/caroot.pem"
 
 echo "Extracting certificate from keystore"
-extract "caroot" "keystore/kafka.keystore.jks" "keystore/kafka.keystore.pem"
+extract "caroot" "keystore/kafka.keystore.jks" "keystore/caroot.pem"
 
 echo "Extracting key from keystore"
-extract "localhost" "keystore/kafka.keystore.jks" "keystore/kafka.keystore.key"
+extract "localhost" "keystore/kafka.keystore.jks" "keystore/localhost.pem"
