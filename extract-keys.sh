@@ -9,11 +9,21 @@ function extract {
     -file $3
 }
 
-echo "Extracting certificate from truststore"
+function decrypt {
+  openssl \
+    rsa \
+    -in $1 \
+    -out $2
+}
+
+echo "Extracting caroot certificate from truststore"
 extract "caroot" "truststore/kafka.truststore.jks" "truststore/caroot.pem"
 
-echo "Extracting certificate from keystore"
+echo "Decrypting ca-key from truststore"
+decrypt "truststore/ca-key" "truststore/ca-key.pem"
+
+echo "Extracting caroot certificate from keystore"
 extract "caroot" "keystore/kafka.keystore.jks" "keystore/caroot.pem"
 
-echo "Extracting key from keystore"
+echo "Extracting localhost certificate from keystore"
 extract "localhost" "keystore/kafka.keystore.jks" "keystore/localhost.pem"
