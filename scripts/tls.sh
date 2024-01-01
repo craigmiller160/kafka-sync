@@ -81,6 +81,7 @@ create_kafka_stores() {
     -in "$LOCALHOST_CERT" \
     -inkey "$LOCALHOST_KEY_ENC" \
     -out "$TEMP_P12" \
+    -name localhost \
     -CAfile "$CA_CERT" \
     -caname caroot \
     -passin "pass:$PASSWORD" \
