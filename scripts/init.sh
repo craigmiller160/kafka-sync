@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./utils.sh
+. ./scripts/utils.sh
 
 docker_start() {
   echo "Starting docker applications"

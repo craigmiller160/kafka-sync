@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./utils.sh
+. ./scripts/utils.sh
 
 CERTS_DIR="$(pwd)/certs"
 CA_CERT="$CERTS_DIR/ca.cert.pem"

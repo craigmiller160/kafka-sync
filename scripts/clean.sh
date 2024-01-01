@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./utils.sh
+. ./scripts/utils.sh
 
 clean_local_data() {
   echo "Cleaning local data"
