@@ -86,7 +86,7 @@ create_kafka_stores() {
   keytool \
     -keystore "$KAFKA_KEYSTORE" \
     -storepass "$PASSWORD" \
-    -alias localhost \
+    -alias CARoot \
     -import \
     -file "$CA_CERT" \
     -noprompt
