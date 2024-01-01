@@ -14,8 +14,10 @@ generate_tls() {
   do_generate_tls=""
   echo -n "Do you want to generate TLS certificates?"
 
-  echo "Generating TLS certificates"
-  (cd scripts && bash kafka-generate-ssl.sh && bash kafka-ssl-postprocess.sh)
+  if [ "$do_generate_tls" == "y" ]; then
+    echo "Generating TLS certificates"
+    (cd scripts && bash kafka-generate-ssl.sh && bash kafka-ssl-postprocess.sh)
+  fi
 }
 
 docker_start
