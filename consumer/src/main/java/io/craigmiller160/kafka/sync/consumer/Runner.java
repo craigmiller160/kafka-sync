@@ -13,7 +13,6 @@ public class Runner {
         final var truststore = Runner.class.getClassLoader().getResource("truststore.jks").toURI().getPath();
         System.setProperty("javax.net.ssl.trustStore", truststore);
         System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
-        HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
         SpringApplication.run(Runner.class, args);
     }
 }
