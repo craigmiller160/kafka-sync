@@ -1,9 +1,15 @@
 #!/bin/sh
 
+ROOT_TRUSTSTORE_PATH="$JAVA_HOME/libexec/openjdk.jdk/Contents/Home/lib/security/cacerts"
+
 function create_app_truststore {
+  truststore_path=./$1/src/main/resources/truststore.jks
+
+  cp $ROOT_TRUSTSTORE_PATH $truststore_path
+
   keytool -importkeystore \
   	-srckeystore ./keystore/kafka.keystore.jks \
-  	-destkeystore ./$1/src/main/resources/truststore.jks \
+  	-destkeystore $truststore_path \
   	-srcstoretype jks \
   	-deststoretype jks \
   	-srcstorepass password \
