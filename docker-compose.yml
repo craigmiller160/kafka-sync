@@ -19,8 +19,8 @@ services:
       KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: false
       KAFKA_CONTROLLER_USER: controller_user
       KAFKA_CONTROLLER_PASSWORD: controller_password
-      KAFKA_CLIENT_USERS: user
-      KAFKA_CLIENT_PASSWORDS: password
+      KAFKA_CLIENT_USERS: user,consumer_user,producer_user
+      KAFKA_CLIENT_PASSWORDS: password,password,password
       KAFKA_TLS_TYPE: JKS
       KAFKA_CFG_SASL_MECHANISM_CONTROLLER_PROTOCOL: PLAIN
       KAFKA_CFG_SASL_MECHANISM_INTER_BROKER_PROTOCOL: PLAIN
