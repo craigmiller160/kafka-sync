@@ -32,9 +32,11 @@ create_stores() {
   echo "Creating Kafka truststore"
   keytool \
     -keystore "$KAFKA_TRUSTSTORE" \
+    -storepass "$PASSWORD" \
     -alias CARoot \
     -import \
-    -file "$CA_CERT"
+    -file "$CA_CERT" \
+    -noprompt
 }
 
 create_certs_directory
