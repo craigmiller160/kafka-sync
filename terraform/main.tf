@@ -10,7 +10,8 @@ terraform {
 provider "kafka" {
   bootstrap_servers = ["localhost:9094"]
   tls_enabled = true
-  ca_cert = file("../truststore/kafka.truststore.pem")
-  client_cert = file("../keystore/kafka.keystore.pem")
+  ca_cert = file("../truststore/caroot.pem")
+  client_cert = file("../truststore/caroot.pem")
   client_key = file("../truststore/ca-key.pem")
+  skip_tls_verify = true
 }
