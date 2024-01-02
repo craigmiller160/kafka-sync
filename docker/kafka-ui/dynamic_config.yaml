@@ -3,12 +3,28 @@ auth:
 kafka:
   clusters:
   - bootstrapServers: kafka:9092
-    name: LocalKafka
+    name: SuperUserKafka
     properties:
       security.protocol: SASL_PLAINTEXT
       sasl.mechanism: PLAIN
       sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required
         username="user" password="password";
+    readOnly: false
+  - bootstrapServers: kafka:9092
+    name: ConsumerUserKafka
+    properties:
+      security.protocol: SASL_PLAINTEXT
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required
+        username="consumer_user" password="password";
+    readOnly: false
+  - bootstrapServers: kafka:9092
+    name: ProducerUserKafka
+    properties:
+      security.protocol: SASL_PLAINTEXT
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required
+        username="producer_user" password="password";
     readOnly: false
 rbac:
   roles: []
