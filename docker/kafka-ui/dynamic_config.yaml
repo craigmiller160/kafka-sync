@@ -14,16 +14,16 @@ kafka:
     name: ConsumerUserKafka
     properties:
       security.protocol: SASL_PLAINTEXT
-      sasl.mechanism: PLAIN
-      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required
+      sasl.mechanism: SCRAM-SHA-256
+      sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required
         username="consumer_user" password="password";
     readOnly: false
   - bootstrapServers: kafka:9092
     name: ProducerUserKafka
     properties:
       security.protocol: SASL_PLAINTEXT
-      sasl.mechanism: PLAIN
-      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required
+      sasl.mechanism: SCRAM-SHA-256
+      sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required
         username="producer_user" password="password";
     readOnly: false
 rbac:

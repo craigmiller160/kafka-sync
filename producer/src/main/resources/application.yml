@@ -11,7 +11,7 @@ spring:
         max.block.ms: 20000
         spring.json.add.type.headers: false
         security.protocol: SASL_SSL
-        sasl.mechanism: PLAIN
-        sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="producer_user" password="password";
+        sasl.mechanism: SCRAM-SHA-256
+        sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="producer_user" password="password";
     bootstrap-servers:
       - "localhost:9094"
